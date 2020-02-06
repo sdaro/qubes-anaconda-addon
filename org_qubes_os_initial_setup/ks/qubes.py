@@ -352,7 +352,12 @@ class QubesData(AddonData):
         self.run_command(['/usr/bin/qubes-prefs', 'default-netvm', default_netvm])
         self.run_command(['/usr/bin/qubes-prefs', 'updatevm', updatevm])
         self.run_command(['/usr/bin/qubes-prefs', 'clockvm', 'sys-net'])
-        self.run_command(['/usr/bin/qvm-start', default_netvm])
+        try:
+            self.run_command(['/usr/bin/qvm-start', default_netvm])
+        except Exception:
+            # Exceptions will be ignored because pci-issues shouldn't stop the whole installation process
+            # and can be handled later
+            pass
 
     def configure_template(self, template, path):
         self.set_stage("Configuring TemplateVM {}".format(template))
