@@ -363,4 +363,5 @@ class QubesData(AddonData):
         self.set_stage("Configuring TemplateVM {}".format(template))
         self.run_command([
             'qvm-template-postprocess', '--really', 'post-install', template, path])
+        self.run_command(['/usr/bin/qvm-prefs', template, 'qrexec_timeout', '600'])
 
